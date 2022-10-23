@@ -38,7 +38,7 @@ for ((scale=scale_min; scale <= scale_max; scale++)); do
   for ((i=0; i<niter; i++)); do
     echo "Iteration $((i + 1))/${niter}"
     # shellcheck disable=SC2012
-    out=${dir}/$((i + 1)).mtx
+    out=${dir}/$((i)).mtx
 
     nver=$((2**scale))
     nedges=$((nver*16))
