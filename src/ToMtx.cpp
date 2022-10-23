@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
     FILE *fout = fopen(argv[4], "w");
     srand(time(nullptr));
 
-    fprintf(fout, "%%MatrixMarket matrix coordinate integer general\n");
+    fprintf(fout, "%%%%MatrixMarket matrix coordinate integer general\n");
     fprintf(fout, "%s %s %s\n", argv[1], argv[1], argv[2]);
     size_t i, j;
     while (fscanf(fin, "%zu %zu", &i, &j) > 0) {
