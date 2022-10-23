@@ -29,20 +29,20 @@ do
     shift
 done
 
-mkdir -p tmp
-
 for ((scale=scale_min; scale <= scale_max; scale++)); do
+  echo "Scale ${scale}"
   dir=rmat/g500-${scale}
   rm -rf ${dir}
   mkdir -p ${dir}
 
   for ((i=0; i<niter; i++)); do
+    echo "Iteration $((i + 1))/${niter}"
     # shellcheck disable=SC2012
     out=${dir}/$((i + 1)).mtx
 
     nver=$((2**scale))
     nedges=$((nver*16))
-    $app -nVertices ${nver} -nEdges ${nedges} -a 0.57 -b 0.19 -c 0.19 -output out.txt -threads 12 -memUsage 0.75
+    $app -nVertices ${nver} -nEdges ${nedges} -a 0.57 -b 0.19 -c 0.19 -output out.txt -threads 12 -memUsage 0.75 > /dev/null
 
     $ToMtx ${nver} ${nedges} out.txt ${out}
     rm -rf out.txt
