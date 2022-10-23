@@ -30,18 +30,18 @@ do
 done
 
 for ((scale=scale_min; scale <= scale_max; scale++)); do
-  dir=rmat/g500-${scale}
+  dir=rmat/
   rm -rf ${dir}
   mkdir -p ${dir}
 
   for ((i=0; i<niter; i++)); do
     printf "\rScale %d/%d - Iteration %d/%d" ${scale} ${scale_max} $((i+1)) ${niter}
     # shellcheck disable=SC2012
-    out=${dir}/$((i)).mtx
+    out=${dir}/g500-${scale}-$((i)).mtx
 
     nver=$((2**scale))
     nedges=$((nver*16))
-    $app -nVertices ${nver} -nEdges ${nedges} -a 0.57 -b 0.19 -c 0.19 -output out.txt -threads 12 -memUsage 0.75 > /dev/null
+    $app -nVertices ${nver} -nEdges ${nedges} -a 0.57 -b 0.19 -c 0.19 -output out.txt -threads 12 -memUsage 0.75 -noDuplicateEdges > /dev/null
 
     $ToMtx ${nver} ${nedges} out.txt ${out}
     rm -rf out.txt
