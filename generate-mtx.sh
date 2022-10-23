@@ -30,7 +30,6 @@ do
 done
 
 for ((scale=scale_min; scale <= scale_max; scale++)); do
-  echo "Scale ${scale}"
   dir=rmat/g500-${scale}
   rm -rf ${dir}
   mkdir -p ${dir}
@@ -47,6 +46,7 @@ for ((scale=scale_min; scale <= scale_max; scale++)); do
     $ToMtx ${nver} ${nedges} out.txt ${out}
     rm -rf out.txt
   done
-  echo
 done
+echo
+
 
