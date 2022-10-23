@@ -36,7 +36,7 @@ for ((scale=scale_min; scale <= scale_max; scale++)); do
   mkdir -p ${dir}
 
   for ((i=0; i<niter; i++)); do
-    echo "Iteration $((i + 1))/${niter}"
+    printf "\rIteration %d/%d" $((i + 1)) ${niter}
     # shellcheck disable=SC2012
     out=${dir}/$((i)).mtx
 
@@ -47,5 +47,6 @@ for ((scale=scale_min; scale <= scale_max; scale++)); do
     $ToMtx ${nver} ${nedges} out.txt ${out}
     rm -rf out.txt
   done
+  echo
 done
 
