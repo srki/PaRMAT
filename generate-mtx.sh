@@ -29,11 +29,11 @@ do
     shift
 done
 
-for ((scale=scale_min; scale <= scale_max; scale++)); do
-  dir=rmat/
-  rm -rf ${dir}
-  mkdir -p ${dir}
+dir=rmat/
+rm -rf ${dir}
+mkdir -p ${dir}
 
+for ((scale=scale_min; scale <= scale_max; scale++)); do
   for ((i=0; i<niter; i++)); do
     printf "\rScale %d/%d - Iteration %d/%d" ${scale} ${scale_max} $((i+1)) ${niter}
     # shellcheck disable=SC2012
