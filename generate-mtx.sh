@@ -36,7 +36,7 @@ for ((scale=scale_min; scale <= scale_max; scale++)); do
   mkdir -p ${dir}
 
   for ((i=0; i<niter; i++)); do
-    printf "\rScale %d/%d - Iteration %d/%d" ${scale} ${max_scale} $((i+1)) ${niter}
+    printf "\rScale %d/%d - Iteration %d/%d" ${scale} ${scale_max} $((i+1)) ${niter}
     # shellcheck disable=SC2012
     out=${dir}/$((i)).mtx
 
