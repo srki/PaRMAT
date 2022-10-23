@@ -24,3 +24,5 @@ target_link_libraries(parmat PRIVATE ${CMAKE_THREAD_LIBS_INIT})
 
 add_executable(PaRMAT src/PaRMAT.cpp)
 target_link_libraries(PaRMAT PRIVATE parmat)
+
+add_executable(ToMtx src/ToMtx.cpp)

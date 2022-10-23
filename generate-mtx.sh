@@ -1,6 +1,7 @@
 #!/bin/bash
 
 app=./build/PaRMAT
+ToMtx=./build/ToMtx
 
 niter=0
 scale_min=0
@@ -28,25 +29,23 @@ do
     shift
 done
 
-for ((i=0; i<niter; i++)); do
-  for ((scale=scale_min; scale <= scale_max; scale++)); do
-      nver=$((2**scale))
-      nedges=$((nver*16))
-      $app -nVertices ${nver} -nEdges ${nedges} -a 0.57 -b 0.19 -c 0.19 -output out.txt -threads 12 -memUsage 0.75
+mkdir -p tmp
 
-      dir=rmat/g500-${scale}
-      mkdir -p ${dir}
-      # shellcheck disable=SC2012
-      cnt=$(ls -1 ${dir} | wc -l)
-      out=${dir}/$((cnt + 1)).mtx
+for ((scale=scale_min; scale <= scale_max; scale++)); do
+  dir=rmat/g500-${scale}
+  rm -rf ${dir}
+  mkdir -p ${dir}
 
-      echo "%%MatrixMarket matrix coordinate integer general" > ${out}
-      echo ${nver} ${nver} ${nedges} >> ${out}
-      while IFS=$'\t' read -r row col; do
-          echo $((row+1)) $((col+1)) $((1 + RANDOM % 10)) >> ${out}
-      done < out.txt
+  for ((i=0; i<niter; i++)); do
+    # shellcheck disable=SC2012
+    out=${dir}/$((i + 1)).mtx
+
+    nver=$((2**scale))
+    nedges=$((nver*16))
+    $app -nVertices ${nver} -nEdges ${nedges} -a 0.57 -b 0.19 -c 0.19 -output out.txt -threads 12 -memUsage 0.75
+
+    $ToMtx ${nver} ${nedges} out.txt ${out}
+    rm -rf out.txt
   done
 done
-
-rm -f out.txt
 
