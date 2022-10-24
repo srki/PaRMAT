@@ -11,13 +11,12 @@ while test $# -gt 0
 do
     case "$1" in
         --niter)
-            echo "Building MADNESS"
             niter=$2
             ;;
-        --scale-min) echo "Building MADNESS fork"
+        --scale-min)
             scale_min=$2
             ;;
-        --scale-max) echo "Building hcnc"
+        --scale-max)
             scale_max=$2
             ;;
         --*) echo "bad option $1"
@@ -40,9 +39,9 @@ for ((scale=scale_min; scale <= scale_max; scale++)); do
     out=${dir}/g500-${scale}-$((i)).mtx
 
     nver=$((2**scale))
-    nedges=$((nver*16))
+    d=$(( scale > 4 ? 16 : 4 ))
+    nedges=$((nver*d))
     $app -nVertices ${nver} -nEdges ${nedges} -a 0.57 -b 0.19 -c 0.19 -output out.txt -threads 12 -memUsage 0.75 -noDuplicateEdges > /dev/null
-
     $ToMtx ${nver} ${nedges} out.txt ${out}
     rm -rf out.txt
   done
