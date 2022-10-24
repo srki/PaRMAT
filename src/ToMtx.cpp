@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
     fprintf(fout, "%s %s %s\n", argv[1], argv[1], argv[2]);
     size_t i, j;
     while (fscanf(fin, "%zu %zu", &i, &j) > 0) {
-        fprintf(fout, "%zu %zu %d\n", i + 1, j + 1, rand() % 1024);
+        fprintf(fout, "%zu %zu %d\n", i + 1, j + 1, 1 + rand() % 2);
     }
 
     fclose(fin);
